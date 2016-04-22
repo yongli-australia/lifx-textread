@@ -66,7 +66,7 @@ int main (int argc, char **argv)
 	 	    }
 	 	 else
 	 	    strcpy( letterset, *( argv + 1 ) );
-
+          findword(sort_result,Wordfile);
       
 
 		 return (0);
