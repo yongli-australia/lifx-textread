@@ -22,7 +22,7 @@ typedef enum { FALSE, TRUE } Boolean;
 
 long int count_file_words(const char *fname);
 void chop( char *string );
-
+Boolean our
 int main (int argc, char **argv)
 {
 	 char letterset[ MAXLEN ];
@@ -93,6 +93,7 @@ void chop( char *string )
 
       return;
 }
+
 
 
 
