@@ -110,7 +110,7 @@ void findword( char lset[16][5], char *filename )
 
 	     while (fgets(word, MAXLEN, fptr)!=NULL){
                for (int i=0;i<16;i++){
-            	  if(word_match(*lset,word)){
+            	  if(word_match(lset[i],word)){
 
             		  printf( "%s", word );
             	  }
