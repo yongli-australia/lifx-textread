@@ -11,32 +11,51 @@
 
 
 #include "tfread.h"
-
+#define NUL '\0'
+#define NOARGS 1
 #define MAXLEN 40
 #define BUFFERSIZE 8192
 #define FILE_OPENING_ERROR 1
-
+#define CONDITION_NOT_MEET 2
 
 typedef enum { FALSE, TRUE } Boolean;
 
 long int count_file_words(const char *fname);
-Boolean duplicatewordcheck( const char *fname);
+void chop( char *string );
 
-
-int main ()
+int main (int argc, char **argv)
 {
+	 char letterset[ MAXLEN ];
 
-  long int wordcount=0L;
 
-  wordcount=count_file_words(Wordfile);
 
-  printf ("number of words: %ld  in the file", wordcount);
 
-  return 0;
+	 if( argc == NOARGS )
+	 	    {
+	 	    puts("Enter 16 char to test ... ");
+	 	    fgets( letterset, MAXLEN, stdin );
+	             chop( letterset );
+	             if (strlen(letterset)<16){
+	            	 printf("condition not meet");
+	            	 exit (CONDITION_NOT_MEET);
+	             }
+	            for (int i=0; i<16; i++){
+	            	printf("%c", letterset[i]);
+	            }
+	 	    }
+	 	 else
+	 	    strcpy( letterset, *( argv + 1 ) );
+
+
+
+		 return (0);
 
 }
 
+void findword( char *lset, char *filename )
+{
 
+}
 
 long int count_file_words( const char *fname )
 {
@@ -62,3 +81,18 @@ long int count_file_words( const char *fname )
      fclose(fptr);
       return (noofword);
 }
+
+void chop( char *string )
+{
+   register int length;
+
+      length = strlen( string );
+      length--; /* Adjust for zero-base indexing. */
+
+      *( string + length ) = NUL;
+
+      return;
+}
+
+
+
