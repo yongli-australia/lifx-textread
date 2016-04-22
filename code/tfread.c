@@ -24,7 +24,7 @@ long int count_file_words(const char *fname);
 void chop( char *string );
 
 Boolean word_match(char *s_grid, char *s_dict);
-void findword( char **lset, char *filename );
+void findword( char lset[16][5], char *filename );
 void sort_arg(char sort[16][5],char *arg);
 
 int main (int argc, char **argv)
@@ -54,7 +54,7 @@ int main (int argc, char **argv)
 	 	    strcpy( letterset, *( argv + 1 ) );
 	 	    
 	 	    
-
+       sort_arg(sort_result,letterset);
        findword(sort_result,Wordfile);
 
 
@@ -92,7 +92,7 @@ void sort_arg(char sort[16][5],char *arg){
 
 }
 
-void findword( char **lset, char *filename )
+void findword( char lset[16][5], char *filename )
 {
 	 FILE *fptr;
 	   char word[MAXLEN];
