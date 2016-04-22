@@ -25,12 +25,13 @@ void chop( char *string );
 
 Boolean word_match(char *s_grid, char *s_dict);
 void findword( char **lset, char *filename );
-char sort_result[16][5];
+void sort_arg(char sort[16][5],char *arg);
+
 int main (int argc, char **argv)
 {
-	 char letterset[ MAXLEN ];
+	char letterset[ MAXLEN ];
 
-
+   char sort_result[16][5];
 
 
 	 if( argc == NOARGS )
@@ -42,40 +43,17 @@ int main (int argc, char **argv)
 	            	 printf("condition not meet");
 	            	 exit (CONDITION_NOT_MEET);
 	             }
-	            for (int i=0; i<16; i++){
-	            	printf("%c", letterset[i]);
-	            }
+	          //  for (int i=0; i<16; i++){
+	            //	printf("%c", letterset[i]);
+	          //  }
 
 
-        /*  for (int i=0; i<16;i++){
-        	  for (int y=0; y<4; y++){
-        		  sort_result[i][y]='/0';
-        	  }
-
-          }*/
-
-	        	    for(int i=0; i<4; i++) {
-
-	        	        for(int j=0; j<4; j++) {
-
-	        	        	 sort_result[i][j]=letterset[i * 4 + j];
-
-	        	            sort_result[15 -i][j]=letterset[ 15 - i*4 -j];
-
-	        	          sort_result[i + 4][j]=letterset[ i + j * 4 ];
-
-	        	        		sort_result[i + 8][j]=letterset[ 15 - i - j*4];
-
-
-	        	        }
-
-	        	    }
-	        	    for (int i=0; i<16; i++){
-	        	    	printf("%s \n", sort_result[i]);
-	        	    }
+         
 	 	    }
 	 	 else
 	 	    strcpy( letterset, *( argv + 1 ) );
+	 	    
+	 	    
 
        findword(sort_result,Wordfile);
 
@@ -85,7 +63,34 @@ int main (int argc, char **argv)
 }
 
 
+void sort_arg(char sort[16][5],char *arg){
+	for (int i=0;i<16;i++){
+		for(int y=0;y<5;y++){
+		sort[i][y]='\0';
+		}
+}
+	 for(int i=0; i<4; i++) {
 
+		        	        for(int j=0; j<4; j++) {
+
+		        	       sort[i][j]=arg[i * 4 + j];
+
+		        	       sort[15 -i][j]=arg[ 15 - i*4 -j];
+
+		        	       sort[i + 4][j]=arg[ i + j * 4 ];
+
+		        	       sort[i + 8][j]=arg[ 15 - i - j*4];
+
+
+		        	        }
+
+		        	    }
+		        	   // for (int i=0; i<16; i++){
+                          // printf("%s \n",sort[i]);
+		        	   // }
+
+
+}
 
 void findword( char **lset, char *filename )
 {
