@@ -43,20 +43,60 @@ int main (int argc, char **argv)
 	            for (int i=0; i<16; i++){
 	            	printf("%c", letterset[i]);
 	            }
+	     for(int i=0; i<4; i++) {
+
+	        	  for(int j=0; j<4; j++) {
+
+	        	        sort_result[i][j]=letterset[i * 4 + j];
+
+	        	        sort_result[15 -i][j]=letterset[ 15 - i*4 -j];
+
+	        	        sort_result[i + 4][j]=letterset[ i + j * 4 ];
+
+	        	        sort_result[i + 8][j]=letterset[ 15 - i - j*4];
+
+
+	        	        }
+
+	        	    }
+	        	    for (int i=0; i<16; i++){
+	        	    	printf("%s", sort_result[i]);
+	        	    }
 	          
 	 	    }
 	 	 else
 	 	    strcpy( letterset, *( argv + 1 ) );
 
-
+      
 
 		 return (0);
 
 }
 
-void findword( char *lset, char *filename )
+void findword( char **word, char *filename )
 {
+  FILE *fptr;
+	   char word[MAXLEN];
 
+	   if (!(fptr=fopen(filename, "r")))
+	    {
+	       printf( "Cannot open Wordfile!" );
+	          exit( FILE_OPENING_ERROR );
+	      }
+	       else
+	           {
+	     if( setvbuf( fptr, NULL, _IOFBF, BUFFERSIZE * 2 ) )
+	         exit ( FILE_OPENING_ERROR );  /*Extra buffering.*/
+	        }
+
+	     while (fgets(word, MAXLEN, fptr)!=NULL){
+               for (int i=0;i<16;i++){
+            	  if(word_match(*lset,word)){
+            		  
+            		  printf("%s" word);
+            	  }
+               }
+	          }
 }
 
 long int count_file_words( const char *fname )
