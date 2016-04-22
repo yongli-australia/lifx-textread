@@ -22,7 +22,8 @@ typedef enum { FALSE, TRUE } Boolean;
 
 long int count_file_words(const char *fname);
 void chop( char *string );
-Boolean our
+Boolean word_match(char *s_grid, char *s_dict);
+char sort_result[16][4];
 int main (int argc, char **argv)
 {
 	 char letterset[ MAXLEN ];
@@ -42,6 +43,7 @@ int main (int argc, char **argv)
 	            for (int i=0; i<16; i++){
 	            	printf("%c", letterset[i]);
 	            }
+	          
 	 	    }
 	 	 else
 	 	    strcpy( letterset, *( argv + 1 ) );
@@ -94,6 +96,31 @@ void chop( char *string )
       return;
 }
 
+Boolean word_match(char *s_grid, char *s_dict) {
+
+   if (strlen(s_dict) <= 2) {
+
+       return 0;
+
+   }
+
+   int is_match = 0;
+
+   if (strlen(s_dict) > strlen(s_grid)) {
+
+      is_match = (strstr(s_dict, s_grid) == NULL ) ? 0 : 1;
+
+   }
+
+   else {
+
+      is_match = (strstr(s_grid, s_dict) == NULL ) ? 0 : 1;
+
+   }
+
+   return is_match;
+
+}
 
 
 
