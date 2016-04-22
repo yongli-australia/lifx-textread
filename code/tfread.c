@@ -22,8 +22,10 @@ typedef enum { FALSE, TRUE } Boolean;
 
 long int count_file_words(const char *fname);
 void chop( char *string );
+
 Boolean word_match(char *s_grid, char *s_dict);
-char sort_result[16][4];
+void findword( char **lset, char *filename );
+char sort_result[16][5];
 int main (int argc, char **argv)
 {
 	 char letterset[ MAXLEN ];
@@ -43,39 +45,51 @@ int main (int argc, char **argv)
 	            for (int i=0; i<16; i++){
 	            	printf("%c", letterset[i]);
 	            }
-	     for(int i=0; i<4; i++) {
 
-	        	  for(int j=0; j<4; j++) {
 
-	        	        sort_result[i][j]=letterset[i * 4 + j];
+        /*  for (int i=0; i<16;i++){
+        	  for (int y=0; y<4; y++){
+        		  sort_result[i][y]='/0';
+        	  }
 
-	        	        sort_result[15 -i][j]=letterset[ 15 - i*4 -j];
+          }*/
 
-	        	        sort_result[i + 4][j]=letterset[ i + j * 4 ];
+	        	    for(int i=0; i<4; i++) {
 
-	        	        sort_result[i + 8][j]=letterset[ 15 - i - j*4];
+	        	        for(int j=0; j<4; j++) {
+
+	        	        	 sort_result[i][j]=letterset[i * 4 + j];
+
+	        	            sort_result[15 -i][j]=letterset[ 15 - i*4 -j];
+
+	        	          sort_result[i + 4][j]=letterset[ i + j * 4 ];
+
+	        	        		sort_result[i + 8][j]=letterset[ 15 - i - j*4];
 
 
 	        	        }
 
 	        	    }
 	        	    for (int i=0; i<16; i++){
-	        	    	printf("%s", sort_result[i]);
+	        	    	printf("%s \n", sort_result[i]);
 	        	    }
-	          
 	 	    }
 	 	 else
 	 	    strcpy( letterset, *( argv + 1 ) );
-          findword(sort_result,Wordfile);
-      
+
+       findword(sort_result,Wordfile);
+
 
 		 return (0);
 
 }
 
-void findword( char **word, char *filename )
+
+
+
+void findword( char **lset, char *filename )
 {
-  FILE *fptr;
+	 FILE *fptr;
 	   char word[MAXLEN];
 
 	   if (!(fptr=fopen(filename, "r")))
@@ -92,11 +106,12 @@ void findword( char **word, char *filename )
 	     while (fgets(word, MAXLEN, fptr)!=NULL){
                for (int i=0;i<16;i++){
             	  if(word_match(*lset,word)){
-            		  
-            		  printf("%s" word);
+
+            		  printf( "%s", word );
             	  }
                }
 	          }
+
 }
 
 long int count_file_words( const char *fname )
@@ -161,6 +176,7 @@ Boolean word_match(char *s_grid, char *s_dict) {
    return is_match;
 
 }
+
 
 
 
