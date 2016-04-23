@@ -38,21 +38,18 @@ int main (int argc, char **argv)
 	 	    {
 	 	    puts("Enter 16 char to test ... ");
 	 	    fgets( letterset, MAXLEN, stdin );
-	             chop( letterset );
-	             if (strlen(letterset)<16){
-	            	 printf("condition not meet");
-	            	 exit (CONDITION_NOT_MEET);
-	             }
+	            
 	          //  for (int i=0; i<16; i++){
 	            //	printf("%c", letterset[i]);
-	          //  }
-
-
-         
 	 	    }
 	 	 else
 	 	    strcpy( letterset, *( argv + 1 ) );
 	 	    
+	 	    chop( letterset );
+	             if (strlen(letterset)<16){
+	            	 printf("condition not meet");
+	            	 exit (CONDITION_NOT_MEET);
+	             }
 	 	    
        sort_arg(sort_result,letterset);
        findword(sort_result,Wordfile);
@@ -109,10 +106,12 @@ void findword( char lset[16][5], char *filename )
 	        }
 
 	     while (fgets(word, MAXLEN, fptr)!=NULL){
+	     	chop(word);  //get rid of new line for comparing
                for (int i=0;i<16;i++){
             	  if(word_match(lset[i],word)){
 
             		  printf( "%s", word );
+            		  break;
             	  }
                }
 	          }
@@ -157,8 +156,8 @@ void chop( char *string )
 }
 
 Boolean word_match(char *s_grid, char *s_dict) {
-
-   if (strlen(s_dict) <= 2) {
+//change from str size 2 to 1 the CR new line has been get rid from str
+   if (strlen(s_dict) <= 1) {
 
        return 0;
 
